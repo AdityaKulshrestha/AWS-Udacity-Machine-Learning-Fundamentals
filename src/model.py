@@ -1,23 +1,50 @@
 import torch
 import torch.nn as nn
 
-
 # define the CNN architecture
+import torch.nn as nn
+
 class MyModel(nn.Module):
     def __init__(self, num_classes: int = 1000, dropout: float = 0.7) -> None:
-        super().__init__()
+        super().__init()
 
-        # YOUR CODE HERE
-        # Define a CNN architecture. Remember to use the variable num_classes
-        # to size appropriately the output of your classifier, and if you use
-        # the Dropout layer, use the variable "dropout" to indicate how much
-        # to use (like nn.Dropout(p=dropout))
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=5)
-        self.conv2 = nn.Conv2d(16, 8, 3)
+        # Define a CNN architecture with batch normalization and kernel size (1, 1) for "max-pooling".
+        self.conv1 = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=64, kernel_size=5, padding=2),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
+        )
+        self.conv2 = nn.Sequential(
+            nn.Conv2d(64, 128, 3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
+        )
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(128, 256, 3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
 
-        self.fc1 = nn.Linear(8 * 54 * 54, 64)
-        self.fc2 = nn.Linear(64, 32)
-        self.fc3 = nn.Linear(32, num_classes)
+        )
+        self.conv4 = nn.Sequential(
+            nn.Conv2d(256, 128, 3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
+
+        )
+        self.conv5 = nn.Sequential(
+            nn.Conv2d(128, 256, 3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
+        )
+
+        self.fc1 = nn.Linear(256 * 7 * 7, 256)
+        self.fc2 = nn.Linear(256, 128)
+        self.fc3 = nn.Linear(128, num_classes)
 
         self.dropout = nn.Dropout(p=dropout)
         self.logSoftmax = nn.LogSoftmax(dim=1)
@@ -25,11 +52,12 @@ class MyModel(nn.Module):
         self.flatten = nn.Flatten()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # YOUR CODE HERE: process the input tensor through the
-        # feature extractor, the pooling and the final linear
-        # layers (if appropriate for the architecture chosen)
-        x = nn.functional.max_pool2d(nn.functional.relu(self.conv1(x)), (2, 2))
-        x = nn.functional.max_pool2d(nn.functional.relu(self.conv2(x)), (2, 2))
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.conv4(x)
+        x = self.conv5(x)
+
         x = self.flatten(x)
         x = nn.functional.relu(self.fc1(x))
         x = self.dropout(x)

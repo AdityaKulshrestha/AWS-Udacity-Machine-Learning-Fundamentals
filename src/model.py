@@ -18,7 +18,7 @@ class MyModel(nn.Module):
         self.conv4 = nn.Conv2d(32, 16, 3)
         self.conv5 = nn.Conv2d(16, 8, 3)
 
-        self.fc1 = nn.Linear(8 * 26 * 26, 128)
+        self.fc1 = nn.Linear(8 * 5 * 5, 128)
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, 32)
         self.fc4 = nn.Linear(32, 16)

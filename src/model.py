@@ -12,13 +12,13 @@ class MyModel(nn.Module):
         # to size appropriately the output of your classifier, and if you use
         # the Dropout layer, use the variable "dropout" to indicate how much
         # to use (like nn.Dropout(p=dropout))
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=5)
-        self.conv2 = nn.Conv2d(16, 8, 3)
-        self.conv3 = nn.Conv2d(8, 8, 3)
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=5)
+        self.conv2 = nn.Conv2d(32, 16, 3)
+        self.conv3 = nn.Conv2d(16, 32, 3)
 
-        self.fc1 = nn.Linear(8 * 26 * 26, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, num_classes)
+        self.fc1 = nn.Linear(32 * 26 * 26, 64)
+        self.fc2 = nn.Linear(64, 32)
+        self.fc3 = nn.Linear(32, num_classes)
 
         self.dropout = nn.Dropout(p=dropout)
         self.logSoftmax = nn.LogSoftmax(dim=1)

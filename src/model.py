@@ -57,6 +57,7 @@ class MyModel(nn.Module):
         x = self.conv3(x)
         x = self.conv4(x)
         x = self.conv5(x)
+        print(x.shape)
 
         x = self.flatten(x)
         x = nn.functional.relu(self.fc1(x))

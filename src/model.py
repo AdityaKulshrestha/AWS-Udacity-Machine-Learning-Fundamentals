@@ -12,17 +12,13 @@ class MyModel(nn.Module):
         # to size appropriately the output of your classifier, and if you use
         # the Dropout layer, use the variable "dropout" to indicate how much
         # to use (like nn.Dropout(p=dropout))
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=5)
-        self.conv2 = nn.Conv2d(32, 16, 3)
-        self.conv3 = nn.Conv2d(16, 32, 3)
-        self.conv4 = nn.Conv2d(32, 16, 3)
-        self.conv5 = nn.Conv2d(16, 8, 3)
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=64, kernel_size=5)
+        self.conv2 = nn.Conv2d(64, 32, 3)
+        self.conv3 = nn.Conv2d(32, 16, 3)
 
-        self.fc1 = nn.Linear(8 * 5 * 5, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 32)
-        self.fc4 = nn.Linear(32, 16)
-        self.fc5 = nn.Linear(16, num_classes)
+        self.fc1 = nn.Linear(16 * 26 * 26, 128)
+
+        self.fc2 = nn.Linear(128, num_classes)
 
         self.dropout = nn.Dropout(p=dropout)
         self.logSoftmax = nn.LogSoftmax(dim=1)
@@ -36,17 +32,11 @@ class MyModel(nn.Module):
         x = nn.functional.max_pool2d(nn.functional.relu(self.conv1(x)), (2, 2))
         x = nn.functional.max_pool2d(nn.functional.relu(self.conv2(x)), (2, 2))
         x = nn.functional.max_pool2d(nn.functional.relu(self.conv3(x)), (2, 2))
-        x = nn.functional.max_pool2d(nn.functional.relu(self.conv4(x)), (2, 2))
-        x = nn.functional.max_pool2d(nn.functional.relu(self.conv5(x)), (2, 2))
 
         x = self.flatten(x)
         x = nn.functional.relu(self.fc1(x))
         x = self.dropout(x)
-        x = nn.functional.relu(self.fc2(x))
-        x = nn.functional.relu(self.fc3(x))
-        x = self.dropout(x)
-        x = nn.functional.relu(self.fc4(x))
-        x = self.fc5(x)
+        x = self.fc2(x)
 
         return x
 

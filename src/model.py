@@ -53,9 +53,13 @@ class MyModel(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.conv1(x)
+        print(x.shape)
         x = self.conv2(x)
+        print(x.shape)
         x = self.conv3(x)
+        print(x.shape)
         x = self.conv4(x)
+        print(x.shape)
         x = self.conv5(x)
         print(x.shape)
 

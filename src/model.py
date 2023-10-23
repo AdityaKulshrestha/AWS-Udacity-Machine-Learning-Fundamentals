@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 
-# define the CNN architecture
-import torch.nn as nn
 
 class MyModel(nn.Module):
     def __init__(self, num_classes: int = 1000, dropout: float = 0.7) -> None:
@@ -12,34 +10,34 @@ class MyModel(nn.Module):
         self.conv1 = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=64, kernel_size=5, padding=2),
             nn.BatchNorm2d(64),
+            nn.MaxPool2d(kernel_size=2),  # No change in size
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
         )
         self.conv2 = nn.Sequential(
             nn.Conv2d(64, 128, 3, padding=1),
             nn.BatchNorm2d(128),
+            nn.MaxPool2d(kernel_size=2),  # No change in size
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
         )
         self.conv3 = nn.Sequential(
             nn.Conv2d(128, 256, 3, padding=1),
             nn.BatchNorm2d(256),
+            nn.MaxPool2d(kernel_size=2),  # No change in size
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
 
         )
         self.conv4 = nn.Sequential(
             nn.Conv2d(256, 128, 3, padding=1),
             nn.BatchNorm2d(128),
+            nn.MaxPool2d(kernel_size=2),  # No change in size
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
 
         )
         self.conv5 = nn.Sequential(
             nn.Conv2d(128, 256, 3, padding=1),
             nn.BatchNorm2d(256),
+            nn.MaxPool2d(kernel_size=2),  # No change in size
             nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=1)  # No change in size
         )
 
         self.fc1 = nn.Linear(256 * 7 * 7, 256)

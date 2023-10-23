@@ -6,7 +6,7 @@ import torch.nn as nn
 
 class MyModel(nn.Module):
     def __init__(self, num_classes: int = 1000, dropout: float = 0.7) -> None:
-        super().__init()
+        super().__init__()
 
         # Define a CNN architecture with batch normalization and kernel size (1, 1) for "max-pooling".
         self.conv1 = nn.Sequential(

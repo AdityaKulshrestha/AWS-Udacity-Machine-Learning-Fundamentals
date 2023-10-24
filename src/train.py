@@ -108,7 +108,7 @@ def optimize(data_loaders, model, optimizer, loss, n_epochs, save_path, interact
     # plateau
     # HINT: look here: 
     # https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
-    scheduler = LinearLR(optimizer, gamma=0.9, total_iters=40)
+    scheduler = LinearLR(optimizer, total_iters=40)
 
     for epoch in range(1, n_epochs + 1):
 

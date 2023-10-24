@@ -6,7 +6,7 @@ from livelossplot import PlotLosses
 from livelossplot.outputs import MatplotlibPlot
 from tqdm import tqdm
 from src.helpers import after_subplot
-from torch.optim.lr_scheduler import ExponentialLR
+from torch.optim.lr_scheduler import LinearLR
 
 
 def train_one_epoch(train_dataloader, model, optimizer, loss):
@@ -81,9 +81,9 @@ def valid_one_epoch(valid_dataloader, model, loss):
                 data, target = data.cuda(), target.cuda()
 
             # 1. forward pass: compute predicted outputs by passing inputs to the model
-            output  = model(data)
+            output = model(data)
             # 2. calculate the loss
-            loss_value  = loss(output, target)
+            loss_value = loss(output, target)
 
             # Calculate average validation loss
             valid_loss = valid_loss + (
@@ -108,7 +108,7 @@ def optimize(data_loaders, model, optimizer, loss, n_epochs, save_path, interact
     # plateau
     # HINT: look here: 
     # https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
-    scheduler = ExponentialLR(optimizer, gamma=0.9)
+    scheduler = LinearLR(optimizer, gamma=0.9, total_iters=40)
 
     for epoch in range(1, n_epochs + 1):
 

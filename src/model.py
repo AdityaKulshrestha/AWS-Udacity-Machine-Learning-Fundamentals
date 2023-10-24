@@ -9,12 +9,12 @@ class MyModel(nn.Module):
 
         # Define a CNN architecture with batch normalization and kernel size (1, 1) for "max-pooling".
         self.conv1 = nn.Conv2d(3, 64, 3, padding=1)
-        self.conv2 = nn.Conv2d(64, 96, 3, padding=1)
-        self.conv3 = nn.Conv2d(96, 64, 3, padding=1)
+        self.conv2 = nn.Conv2d(64, 32, 3, padding=1)
+        self.conv3 = nn.Conv2d(32, 64, 3, padding=1)
         self.conv4 = nn.Conv2d(64, 128, 3, padding=1)
 
-        self.fc1 = nn.Linear(128 * 14 * 14, 2048)
-        self.fc2 = nn.Linear(2048, 512)
+        self.fc1 = nn.Linear(128 * 14 * 14, 1024)
+        self.fc2 = nn.Linear(1024, 512)
         self.fc3 = nn.Linear(512, 128)
         self.fc4 = nn.Linear(128, num_classes)
         self.pool = nn.MaxPool2d(2, 2)
@@ -34,7 +34,6 @@ class MyModel(nn.Module):
         x = nn.functional.relu(self.fc2(x))
         x = self.dropout(x)
         x = nn.functional.relu(self.fc3(x))
-        x = self.dropout(x)
         x = self.fc4(x)
 
         return x

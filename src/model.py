@@ -8,8 +8,8 @@ class MyModel(nn.Module):
         super().__init__()
 
         # Define a CNN architecture with batch normalization and kernel size (1, 1) for "max-pooling".
-        self.conv1 = nn.Conv2d(3, 16, 3, padding=1)
-        self.conv2 = nn.Conv2d(16, 32, 3, padding=1)
+        self.conv1 = nn.Conv2d(3, 64, 3, padding=1)
+        self.conv2 = nn.Conv2d(64, 32, 3, padding=1)
         self.conv3 = nn.Conv2d(32, 64, 3, padding=1)
         self.conv4 = nn.Conv2d(64, 128, 3, padding=1)
 
@@ -23,18 +23,15 @@ class MyModel(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.pool(F.relu(self.conv1(x)))
-        print(x.shape)
         x = self.pool(F.relu(self.conv2(x)))
-        print(x.shape)
         x = self.pool(F.relu(self.conv3(x)))
-        print(x.shape)
         x = self.pool(F.relu(self.conv4(x)))
-        print(x.shape)
 
         x = self.flatten(x)
         x = nn.functional.relu(self.fc1(x))
         x = self.dropout(x)
         x = nn.functional.relu(self.fc2(x))
+        x = self.dropout(x)
         x = self.fc3(x)
 
         return x

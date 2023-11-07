@@ -6,7 +6,7 @@ from livelossplot import PlotLosses
 from livelossplot.outputs import MatplotlibPlot
 from tqdm import tqdm
 from src.helpers import after_subplot
-from torch.optim.lr_scheduler import LinearLR
+from torch.optim.lr_scheduler import ExponentialLR
 
 
 def train_one_epoch(train_dataloader, model, optimizer, loss):
@@ -108,7 +108,7 @@ def optimize(data_loaders, model, optimizer, loss, n_epochs, save_path, interact
     # plateau
     # HINT: look here: 
     # https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
-    scheduler = LinearLR(optimizer, total_iters=40)
+    scheduler = ExponentialLR(optimizer, gamma=0.8)
 
     for epoch in range(1, n_epochs + 1):
 

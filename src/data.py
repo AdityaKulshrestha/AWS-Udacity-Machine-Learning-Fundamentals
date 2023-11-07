@@ -44,31 +44,31 @@ def get_data_loaders(
         "train": transforms.Compose([
             # YOUR CODE HERE
             transforms.Resize((256, 256)),
-            transforms.RandomAffine(degrees=0, translate=(0.1, 0.1)),
-            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2),
             transforms.RandomCrop((224, 224)),
             transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(), 
+            transforms.RandomAffine(degrees=0, translate=(0.1, 0.1)),
+            transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
+            transforms.ToTensor(),
             transforms.Normalize(mean=mean,
                                  std=std)
         ]),
         "valid": transforms.Compose([
             # YOUR CODE HERE
-            transforms.Resize((256, 256)), 
+            transforms.Resize((256, 256)),
             transforms.CenterCrop((224, 224)),
-            transforms.ToTensor(), 
+            transforms.ToTensor(),
             transforms.Normalize(mean=mean,
                                  std=std)
-            
+
         ]),
         "test": transforms.Compose([
             # YOUR CODE HERE
             transforms.Resize((256, 256)),
             transforms.CenterCrop((224, 224)),
-            transforms.ToTensor(), 
+            transforms.ToTensor(),
             transforms.Normalize(mean=mean,
                                  std=std)
-            
+
         ]),
     }
 

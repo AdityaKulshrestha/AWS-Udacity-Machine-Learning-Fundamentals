@@ -8,8 +8,8 @@ class MyModel(nn.Module):
         super().__init__()
 
         # Define a CNN architecture with batch normalization and kernel size (1, 1) for "max-pooling".
-        self.conv1 = nn.Conv2d(3, 64, 3, padding=1)
-        self.conv2 = nn.Conv2d(64, 128, 3, padding=1)
+        self.conv1 = nn.Conv2d(3, 72, 3, padding=1)
+        self.conv2 = nn.Conv2d(72, 128, 3, padding=1)
         self.conv3 = nn.Conv2d(128, 96, 3, padding=1)
         self.conv4 = nn.Conv2d(96, 128, 3, padding=1)
 

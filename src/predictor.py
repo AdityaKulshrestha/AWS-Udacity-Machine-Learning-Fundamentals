@@ -30,7 +30,7 @@ class Predictor(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         with torch.no_grad():
             # 1. apply transforms
-            # x = self.transforms(x)
+            x = self.transforms(x)
             print(x.shape)
             # 2. get the logits
             x = self.model(x)

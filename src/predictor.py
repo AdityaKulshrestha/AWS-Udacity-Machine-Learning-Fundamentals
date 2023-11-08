@@ -31,7 +31,7 @@ class Predictor(nn.Module):
         with torch.no_grad():
             # 1. apply transforms
             x = self.transforms(x)
-            print(x.shape)
+            # print(x.shape)
             # 2. get the logits
             x = self.model(x)
             # 3. apply softmax
